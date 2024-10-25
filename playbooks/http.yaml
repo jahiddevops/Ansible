@@ -1,0 +1,19 @@
+---
+- name: Set up an HTTP web page
+  hosts: webserver
+  become: yes
+  tasks:
+    - name: Install httpd
+      yum:
+        name: httpd
+        state: latest
+    - name: start httpd
+      service:
+        name: httpd
+        state: started
+        enabled: yes
+    - name: Create the index.html file
+      copy:
+        content: "I created this with Ansible"
+        dest: /var/www/html/index.html
+        
